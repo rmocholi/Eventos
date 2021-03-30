@@ -41,9 +41,13 @@ class BDConn {
         $sql = "select * from eventos where ID = $id";
         $datos = mysqli_query($this->conexion,$sql);
         $rawEv = mysqli_fetch_array($datos, MYSQLI_ASSOC);
-        return $rawEv;
-        
-        
+        return $rawEv;             
+    }
+    
+    public function updateEvent($id,$desc,$tipo,$timestamp,$pos,$profundidad,$temp_agua,$sal,$fluor,$conductividad,$temp_aire,$humedad,$pres_atmos,$vel_med_viento) {
+        $sql= "UPDATE eventos SET Descripcion='$desc', Tipo='$tipo', Timestamp='$timestamp', Pos='$pos', Profundidad=$profundidad, Temp_agua=$temp_agua, Sal=$sal, Fluor=$fluor, Conductividad=$conductividad, Temp_aire=$temp_aire, Humedad=$humedad, Pres_atmos=$pres_atmos, Vel_med_viento=$vel_med_viento "
+                . "WHERE ID = $id";
+        mysqli_query($this->conexion, $sql) or die(mysqli_error($this->conexion));
     }
     
        public function deleteByID($id) {

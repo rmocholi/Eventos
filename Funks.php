@@ -35,11 +35,24 @@
         $eventosDBc->insertDBEvent($ev->getDesc(), $ev->getTipo(), $ev->getTimestamp(), $ev->getPos(), $ev->getProfundidad(), $ev->getTemp_agua(), $ev->getSal(), $ev->getFluor(), $ev->getConductividad(), $ev->getTemp_aire(), $ev->getHumedad(), $ev->getPres_atmos(), $ev->getVel_med_viento());
     }
     
+    function adquireEv2Update($id) {
+    global $eventosDBc;
+    $rawEvs = $eventosDBc->searchByID($id);
+    $event = new Evento($rawEvs);
+    return $event;
+    }
+    
+    function ActualizarEvento($id,$desc,$tipo,$date) {
+        global $eventosDBc;
+        $ev = new Evento($desc,$tipo,$date);
+        $eventosDBc->updateEvent($id, $ev->getDesc(), $ev->getTipo(), $ev->getTimestamp(), $ev->getPos(), $ev->getProfundidad(), $ev->getTemp_agua(), $ev->getSal(), $ev->getFluor(), $ev->getConductividad(), $ev->getTemp_aire(), $ev->getHumedad(), $ev->getPres_atmos(), $ev->getVel_med_viento());
+       
+    }
+    
     
     function mostrarEvento($id) {
         global $eventosDBc;
         $rawEv = $eventosDBc->searchByID($id);
-        //$evento = new Evento($rawEv[0],$rawEv[1],$rawEv[2],$rawEv[3],$rawEv[4],$rawEv[5],$rawEv[6],$rawEv[7],$rawEv[8],$rawEv[9],$rawEv[10],$rawEv[11],$rawEv[12],$rawEv[13]);
         echo "<div class='container-sm'>";
         echo "<div class='span10 offset1' >";
         echo "<div class='row mb-2'><h3> Información sobre el Evento</h3></div>";

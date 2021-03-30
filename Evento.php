@@ -142,6 +142,7 @@ class Evento {
         function __construct() {
             $params = func_get_args();
             $num_params = func_num_args();
+            //uso el constructor cuyo nombre incluya el numero de parametros introducidos
             $funcion_constructor ='__construct'.$num_params;
             if (method_exists($this,$funcion_constructor)) {
 			//si existía esa función, la invoco, reenviando los parámetros que recibí en el constructor original
@@ -153,6 +154,24 @@ class Evento {
         
         function __construct0() {
             
+        }
+        
+        function __construct1($rawEv){
+            $this->__construct14($rawEv['ID'],$rawEv['Descripcion'],$rawEv['Tipo'],$rawEv['Timestamp'],$rawEv['Pos'],$rawEv['Profundidad'],$rawEv['Temp_agua'],$rawEv['Sal'],$rawEv['Fluor'],$rawEv['Conductividad'],$rawEv['Temp_aire'],$rawEv['Humedad'],$rawEv['Pres_atmos'],$rawEv['Vel_med_viento']);
+            switch ($this->tipo){
+                case "Equipo al Agua":
+                    $this->tipo=1; break;
+                case "Equipo a bordo":
+                    $this->tipo=2; break;
+                case "Inicio de Linea":
+                    $this->tipo=3; break;
+                case "Fin de Linea":
+                    $this->tipo=4; break;
+                case "Estación":
+                    $this->tipo=5;  break;
+                case "Incidencia":
+                    $this->tipo=6; break;
+            }
         }
 
         function __construct3($desc, $tipo, $timestamp) {
