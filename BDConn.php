@@ -52,6 +52,13 @@ class BDConn {
         
     }
     
+    public function deleteAllEvents() {
+        $sql = "delete from eventos";
+        mysqli_query($this->conexion, $sql) or die(mysqli_error($this->conexion));
+        $sql = "ALTER TABLE eventos AUTO_INCREMENT = 0";
+        mysqli_query($this->conexion, $sql) or die(mysqli_error($this->conexion));
+    }
+    
    public function rDBSado(){
        
    }

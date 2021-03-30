@@ -7,8 +7,15 @@
      
     if ( !empty(filter_input(INPUT_POST, "id"))) {
         $id = filter_input(INPUT_POST, "id");
-        borrarEvento($id);
-        header("Location: index.php");
+        if($id=='all'){
+            borrarTodo();
+            header("Location: index.php");
+        }
+        else{
+            borrarEvento($id);
+            header("Location: index.php"); 
+        }
+        
                
     }
 ?>
@@ -29,22 +36,45 @@
         <div class="container">
      
                 <div class="span10 offset1">
-                    <div class="row ">
+                    <?php if($id!='all'){ ?>
+                        <div class="row ">
                             <h1 class="text-center">Borrar Evento</h1>
-                    </div>
-                    <?php
-                    mostrarEvento($id)?>
-                    <form class="form-horizontal" action="borrar.php" method="post">
-                      <input type="hidden" name="id" value="<?php echo $id;?>"/>
-                      <p class="alert alert-danger text-center">¿Seguro que quieres borrar este evento? El no lo haría.</p>
-                      <div class="form-actions text-center">
-                          <button type="submit" class="btn btn-danger btn-lg">Si</button>
-                          <a class="btn btn-lg" href="index.php">No</a>
-                      </div>
-                    </form>
+                        </div>
+                        <?php
+                        mostrarEvento($id)?>
+                        <form class="form-horizontal" action="borrar.php" method="post">
+                          <input type="hidden" name="id" value="<?php echo $id;?>"/>
+                          <p class="alert alert-danger text-center">¿Seguro que quieres borrar este evento? El no lo haría.</p>
+                          <div class="form-actions text-center">
+                              <button type="submit" class="btn btn-danger btn-lg">Si</button>
+                              <a class="btn btn-lg" href="index.php">No</a>
+                          </div>
+                        </form>
+                    <?php } else { ?>
+                        <div class="row ">
+                            <p><?php echo $id;?></p>
+                            <h1 class="text-center">BORRAR TODOS LOS EVENTOS</h1>
+                        </div>
+                        <form class="form-horizontal mt-5" action="borrar.php" method="post">
+                          <input type="hidden" name="id" value="<?php echo $id;?>"/>
+                          <p class="alert alert-danger text-center h2">¿Seguro que quieres borrar TODOS los eventos?</p>
+                          <div class="container">
+                            <div class="row justify-content-around form-actions mt-5 ">
+                                <div class="col-4 " >
+                                  <button type="submit" class="btn btn-danger btn-lg" style="display:block; width: 100%; ">Si</button>
+                                </div>
+                                <div class="col-4" >
+                                  <a class="btn btn-lg btn-secondary " href="index.php" style="display:block; width: 100%; ">No</a>
+                                </div>
+                            </div>
+                          </div>
+                        </form>
+                    <?php } ?>
+                    
                 </div>
                  
         </div>
+        <script src="js/popper.min.js"></script>
     </body>
 </html>
 

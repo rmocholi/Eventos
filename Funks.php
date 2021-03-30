@@ -56,4 +56,9 @@
         global $eventosDBc;
         $eventosDBc->deleteByID($id);
     }
+    
+    function borrarTodo() {
+    global $eventosDBc;
+    $eventosDBc->deleteAllEvents();
+    }
 
