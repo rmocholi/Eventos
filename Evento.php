@@ -23,6 +23,9 @@ class Evento {
         public $vel_med_viento = 0;
         
         
+        
+        
+        
      //GETTERS Y SETTERS   
         function getID() {
             return $this->ID;

@@ -52,7 +52,6 @@
                         </form>
                     <?php } else { ?>
                         <div class="row ">
-                            <p><?php echo $id;?></p>
                             <h1 class="text-center">BORRAR TODOS LOS EVENTOS</h1>
                         </div>
                         <form class="form-horizontal mt-5" action="borrar.php" method="post">
