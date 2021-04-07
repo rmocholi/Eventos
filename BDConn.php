@@ -19,8 +19,8 @@ class BDConn {
 
     //Conecta la base de datos
     public function connect(){
-        $this->conexion = mysqli_connect($this->server, $this->usuario, $this->contraseña);
-        $this->db = mysqli_select_db($this->conexion, $this->dbName);
+        $this->conexion = mysqli_connect($this->server, $this->usuario, $this->contraseña) or die(mysqli_error($this->conexion));;
+        $this->db = mysqli_select_db($this->conexion, $this->dbName) or die(mysqli_error($this->conexion));
     }
     
     //Lee la base de datos y devuelve una variable con todos los datos en bruto.
@@ -63,8 +63,20 @@ class BDConn {
         mysqli_query($this->conexion, $sql) or die(mysqli_error($this->conexion));
     }
     
-   public function rDBSado(){
-       
+    //SECCION SADO
+    
+   public function getSadoLastPos(){
+       $sql = "select longitud, latitud from posicion order by fecha desc limit 1";
+       $query =  mysqli_query($this->conexion, $sql) or die(mysqli_error($this->conexion));
+       $arQu = mysqli_fetch_array($query,MYSQLI_ASSOC);
+       $lat = $arQu['latitud'];
+       $long = $arQu['longitud'];
+       $istlat= substr($lat, 0, 1);    
+       $istlong= substr($long, 0, 1);
+       if($istlat == "-"){ $lat=$lat."S";}else{$lat=$lat."N";}
+       if($istlong == "-"){$long=$long."W";}else{$long=$long."E";}
+       $pos = $lat."/".$long;        
+       return $pos;
    }
    
    

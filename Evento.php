@@ -1,11 +1,7 @@
 <?php
 
 
-/**
- * Description of Evento
- *
- * @author Roger
- */
+//include 'BDConn.php';
 class Evento {
         public $ID = 0;
         public $desc = "";
@@ -21,6 +17,10 @@ class Evento {
         public $humedad = 0;
         public $pres_atmos = 0;
         public $vel_med_viento = 0;
+        
+        
+
+        private $sadoConn;
         
         
         
@@ -143,6 +143,7 @@ class Evento {
         
     //SOBRECARGA DE CONSTRUCTORES CASERA CHAPUCERA            
         function __construct() {
+            $this->sadoConn = new BDConn("sadodb", "sado", "sado", "SADO_SDG_RT");
             $params = func_get_args();
             $num_params = func_num_args();
             //uso el constructor cuyo nombre incluya el numero de parametros introducidos
@@ -195,6 +196,11 @@ class Evento {
                 case 6:
                     $this->tipo="Incidencia"; break;
             }
+            $this->sadoConn->connect();
+            $this->pos= $this->sadoConn->getSadoLastPos();
+            
+            
+            // Aqui va la adqisicion de datos del SADO
         }
   
         function __construct14($ID, $desc, $tipo, $timestamp, $pos, $profundidad, $temp_agua, $sal, $fluor, $conductividad, $temp_aire, $humedad, $pres_atmos, $vel_med_viento) {
