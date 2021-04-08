@@ -57,7 +57,9 @@
         echo "<div class='span10 offset1' >";
         echo "<div class='row mb-2'><h3> Información sobre el Evento</h3></div>";
         echo "<div class='row'><table class='table table-stripped'>";
+        $unidad="";
         foreach ($rawEv as $dato => $valor) {
+            //Meter las unidades de medida segun el tipo de dato
             echo "<tr><th>$dato</th><td>$valor</td></tr>";
         }
         echo "</table></div>";

@@ -1,13 +1,11 @@
 <?php
 
-include 'BDConn.php';
+$string = "2021-04-08 20:25:14";
+$hora = substr($string,11,2 );
+$hora=$hora-4;
+if(strlen($hora) == 1){$hora = "0".$hora-2;}
 
-$sadoConn = new BDConn("sadodb", "sado", "sado", "SADO_SDG_RT");
+$intervalo = substr_replace($string, $hora,11,2);
 
-$sadoConn->connect();
-
-$datos = $sadoConn->getSadoLastPos();
-
-
-echo $datos;
+echo $intervalo;
 

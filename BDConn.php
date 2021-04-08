@@ -65,18 +65,41 @@ class BDConn {
     
     //SECCION SADO
     
-   public function getSadoLastPos(){
-       $sql = "select longitud, latitud from posicion order by fecha desc limit 1";
+   public function getSadoPos($momento, $intervalo){
+       //$sql = "select longitud, latitud from posicion order by fecha desc limit 1";
+       $sql = "select longitud, latitud from posicion where fecha between '$intervalo' and '$momento' order by fecha desc limit 1;";
        $query =  mysqli_query($this->conexion, $sql) or die(mysqli_error($this->conexion));
        $arQu = mysqli_fetch_array($query,MYSQLI_ASSOC);
        $lat = $arQu['latitud'];
        $long = $arQu['longitud'];
        $istlat= substr($lat, 0, 1);    
        $istlong= substr($long, 0, 1);
-       if($istlat == "-"){ $lat=$lat."S";}else{$lat=$lat."N";}
-       if($istlong == "-"){$long=$long."W";}else{$long=$long."E";}
-       $pos = $lat."/".$long;        
+       if($istlat == "-"){ $lat=$lat."S"; $lat=substr($lat, 1);}else{$lat=$lat."N";}
+       if($istlong == "-"){$long=$long."W"; $long=substr($long, 1);}else{$long=$long."E";}
+       $pos = $lat." ".$long;        
        return $pos;
+   }
+   
+   public function getSadoProf($momento, $intervalo){
+       $sql = "select profundidad from posicion where fecha between '$intervalo' and '$momento' order by fecha desc limit 1;";
+       $query =  mysqli_query($this->conexion, $sql) or die(mysqli_error($this->conexion));
+       $arQu = mysqli_fetch_array($query,MYSQLI_ASSOC);
+       $prof = $arQu['profundidad'];
+       return $prof;
+   }
+   
+   public function getSadoTermosalData($momento, $intervalo){
+       $sql = "select salinidad,temperatura,fluor,conductividad from termosal where fecha between '$intervalo' and '$momento' order by fecha desc limit 1;";
+       $query =  mysqli_query($this->conexion, $sql) or die(mysqli_error($this->conexion));
+       $arQu = mysqli_fetch_array($query,MYSQLI_ASSOC);
+       return $arQu;
+   }
+   
+   public function getSadoMeteoData($momento, $intervalo) {
+       $sql = "select velocidad_media_viento,temperatura_aire,humedad,presion_atm from meteo where fecha between '$intervalo' and '$momento' order by fecha desc limit 1;";
+       $query =  mysqli_query($this->conexion, $sql) or die(mysqli_error($this->conexion));
+       $arQu = mysqli_fetch_array($query,MYSQLI_ASSOC);
+       return $arQu;
    }
    
    

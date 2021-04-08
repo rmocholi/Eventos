@@ -138,6 +138,27 @@ class Evento {
         function setVel_med_viento($vel_med_viento): void {
             $this->vel_med_viento = $vel_med_viento;
         }
+        
+        function LlenarDatosSado() {
+            $momento = $this->timestamp;
+            $hora = substr($momento,11,2 );
+            $hora=$hora-4;
+            if(strlen($hora) == 1){$hora = "0".$hora-2;}
+            $intervalo = substr_replace($momento, $hora,11,2);
+            $this->sadoConn->connect();
+            $this->pos= $this->sadoConn->getSadoPos($momento,$intervalo);
+            $this->profundidad=$this->sadoConn->getSadoProf($momento, $intervalo);
+            $termosal=$this->sadoConn->getSadoTermosalData($momento, $intervalo);
+            $this->temp_agua=$termosal['temperatura'];
+            $this->sal=$termosal['salinidad'];
+            $this->conductividad=$termosal['conductividad'];
+            $this->fluor=$termosal['fluor'];
+            $meteo= $this->sadoConn->getSadoMeteoData($momento, $intervalo);
+            $this->vel_med_viento=$meteo['velocidad_media_viento'];
+            $this->humedad=$meteo['humedad'];
+            $this->pres_atmos=$meteo['presion_atm'];
+            $this->temp_aire=$meteo['temperatura_aire'];
+        }
 
                 
         
@@ -159,7 +180,7 @@ class Evento {
         function __construct0() {
             
         }
-        
+        //PARA ADQUIRIR EVENTO PARA POSTERIORMENTE ACTUALIZAR
         function __construct1($rawEv){
             $this->__construct14($rawEv['ID'],$rawEv['Descripcion'],$rawEv['Tipo'],$rawEv['Timestamp'],$rawEv['Pos'],$rawEv['Profundidad'],$rawEv['Temp_agua'],$rawEv['Sal'],$rawEv['Fluor'],$rawEv['Conductividad'],$rawEv['Temp_aire'],$rawEv['Humedad'],$rawEv['Pres_atmos'],$rawEv['Vel_med_viento']);
             switch ($this->tipo){
@@ -178,6 +199,7 @@ class Evento {
             }
         }
 
+        //PARA LA CREACION Y ACTUALIZACIÓN DE EVENTOS
         function __construct3($desc, $tipo, $timestamp) {
             $this->desc = $desc;
             $this->tipo = $tipo;
@@ -196,13 +218,10 @@ class Evento {
                 case 6:
                     $this->tipo="Incidencia"; break;
             }
-            $this->sadoConn->connect();
-            $this->pos= $this->sadoConn->getSadoLastPos();
-            
-            
-            // Aqui va la adqisicion de datos del SADO
+            $this->LlenarDatosSado();
         }
   
+        //PARA LA LECTURA DE LA BD DE EVENTOS
         function __construct14($ID, $desc, $tipo, $timestamp, $pos, $profundidad, $temp_agua, $sal, $fluor, $conductividad, $temp_aire, $humedad, $pres_atmos, $vel_med_viento) {
             $this->ID = $ID;
             $this->desc = $desc;
