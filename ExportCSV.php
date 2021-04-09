@@ -1,5 +1,6 @@
 <?php 
     include 'Funks.php';
+    $hideExport=false;
     if (!empty(filter_input_array(INPUT_POST))){
                 $opt = filter_input_array(INPUT_POST);
     }else{
@@ -7,11 +8,11 @@
     }
     
     if(!is_null($opt)){
+        $hideExport=true;
         $fileDesc = $opt['fileDesc'];
         $filename = "Eventos-$fileDesc.csv";
         $filepath = "Exports/$filename";
         unset($opt['fileDesc']);
-        //La idea es recorrer el array de eventos, por cada evento recorrer sus atributos, por cada atributo recorrer el array de opciones para ver si alguna de las opciones escogidas coincide con el.
         $eventos = leerEventos();
         $archivo = fopen($filepath, 'w');
         $delim=",";
@@ -118,9 +119,11 @@
                 
                 <div class="container">
                     <div class="row justify-content-around form-actions mt-5 ">
+                        <?php if(!$hideExport){ ?>
                         <div class="col-4 " >
                             <button type="submit" class="btn btn-primary btn-lg" style="display:block; width: 100%; ">Exportar</button>
                         </div>
+                        <?php }?>
                         <div class="col-4" >
                             <a class="btn btn-lg btn-secondary " href="index.php" style="display:block; width: 100%; ">Volver</a>
                          </div>

@@ -53,18 +53,24 @@
     function mostrarEvento($id) {
         global $eventosDBc;
         $rawEv = $eventosDBc->searchByID($id);
-        echo "<div class='container-sm'>";
-        echo "<div class='span10 offset1' >";
-        echo "<div class='row mb-2'><h3> Información sobre el Evento</h3></div>";
+        echo "<div class='container-sm'><div class='row mb-2'><h3> Información sobre el Evento</h3></div>";
         echo "<div class='row'><table class='table table-stripped'>";
-        $unidad="";
         foreach ($rawEv as $dato => $valor) {
-            //Meter las unidades de medida segun el tipo de dato
+            switch ($dato) {
+                case "Profundidad": $valor=$valor." m"; break;
+                case "Temp_agua": $valor=$valor." ºC"; break;
+                case "Sal": $valor=$valor." psu"; break;
+                case "Fluor": $valor=$valor." volts"; break;
+                case "Conductividad": $valor=$valor." mS/cm"; break;
+                case "Temp_aire": $valor=$valor." ºC"; break;
+                case "Humedad": $valor=$valor." %H"; break;
+                case "Pres_atmos": $valor=$valor." bar"; break;
+                case "Vel_med_viento": $valor=$valor." m/s"; break;
+            }
             echo "<tr><th>$dato</th><td>$valor</td></tr>";
         }
         echo "</table></div>";
-        echo "</div></div></div></div>";
-    
+        echo "</div></div></div>";   
     }
     
     function borrarEvento($id){
