@@ -1,5 +1,0 @@
-desc,tipo,timestamp,pos,sal,fluor,temp_aire
-"Lanzamos un CTD 5000","Equipo al Agua","2020-12-23 20:38:00.000000","20.9191392N 27.2900362W",36.9825,0.019536,22.0181
-"Lanzamos el primer pie","Equipo al Agua","2021-04-02 09:23:00.000000","18.5649667S 10.1197417W",36.5566,0.547009,24.3451
-"Lanzamos el segundo pie","Equipo al Agua","2021-04-09 12:24:00.000000","6.4994417N 18.6365533W",34.2328,0.739927,24.3451
-"Recogemos todos los pies","Equipo a bordo","2021-04-09 12:24:00.000000","6.4994417N 18.6365533W",34.2328,0.739927,24.3451

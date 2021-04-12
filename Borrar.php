@@ -57,6 +57,11 @@
                         <form class="form-horizontal mt-5" action="borrar.php" method="post">
                           <input type="hidden" name="id" value="<?php echo $id;?>"/>
                           <p class="alert alert-danger text-center h2">¿Seguro que quieres borrar TODOS los eventos?</p>
+                          <h5 class="text-center">
+                              <small class="text-muted">
+                                  También se borraran del servidor los CSV exportados hasta ahora.<br> Utiliza esta opción solo al terminar una campaña, o al comenzarla si no se ha borrado antes.
+                              </small>
+                          </h5>
                           <div class="container">
                             <div class="row justify-content-around form-actions mt-5 ">
                                 <div class="col-4 " >

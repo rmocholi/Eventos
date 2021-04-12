@@ -79,7 +79,13 @@
     }
     
     function borrarTodo() {
-    global $eventosDBc;
-    $eventosDBc->deleteAllEvents();
+        global $eventosDBc;
+        $eventosDBc->deleteAllEvents();
+        $files = glob('Exports/*');
+        foreach ($files as $file) {
+            if(is_file($file)){
+                unlink($file);
+            }
+        }
     }
 

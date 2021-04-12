@@ -1,15 +1,21 @@
 <?php 
     include 'Funks.php';
+    $isdesc=true;
+    $fileDesc = null;
     $hideExport=false;
     if (!empty(filter_input_array(INPUT_POST))){
                 $opt = filter_input_array(INPUT_POST);
+                $fileDesc = $opt['fileDesc'];
+                if (empty($fileDesc)){
+                    $isdesc=false;
+                    $opt=null;
+                }
     }else{
         $opt = null;
     }
     
     if(!is_null($opt)){
-        $hideExport=true;
-        $fileDesc = $opt['fileDesc'];
+        $hideExport=true;             
         $filename = "Eventos-$fileDesc.csv";
         $filepath = "Exports/$filename";
         unset($opt['fileDesc']);
@@ -20,16 +26,15 @@
         foreach ($eventos as $e) {
             $linea=array();
             foreach ($e as $dato => $val) {
-               if(in_array($dato, $opt)){
-                   array_push($linea,$val);
-               }              
+                if(in_array($dato, $opt)){
+                    array_push($linea,$val);
+                }              
             }
             fputcsv($archivo, $linea,$delim);
         }
         header('Content-Type: text/csv');
         header('Content-Disposition: attachment; filename="'.$filename.'";');
         readfile($filepath);
-        //header("Location: index.php");
         exit();
     }else{
             
@@ -116,6 +121,7 @@
                     <input type="text" class="form-control" name="fileDesc" id="fileDesc" aria-describedby="fileDescHelp" />
                     <div id="fileDescHelp" class="form-text">El nombre de la campaña, nombre del IP, tu nombre, el tipo de instrumentos...</div> 
                 </div>
+                <?php if(!$isdesc){ echo "<div class='container'><p class='alert alert-danger'>Por favor, introduce un identificador.</p></div>";} ?>
                 
                 <div class="container">
                     <div class="row justify-content-around form-actions mt-5 ">

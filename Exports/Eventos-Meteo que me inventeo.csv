@@ -1,0 +1,4 @@
+ID,desc,tipo,timestamp,pos,temp_agua,temp_aire,pres_atmos,vel_med_viento
+1,"Lanzamos un CTD 5000","Equipo al Agua","2021-04-12 14:37:00.000000","18.4046433N 19.5227883W",20.4994,24.3451,1023.46,10.7916
+2,"Lanzamos un CTD 4000","Equipo al Agua","2021-04-12 14:37:00.000000","18.4046433N 19.5227883W",20.4994,24.3451,1023.46,10.7916
+3,"Recogemos el ctd","Equipo a bordo","2021-04-12 14:37:00.000000","18.4046433N 19.5227883W",20.4994,24.3451,1023.46,10.7916
