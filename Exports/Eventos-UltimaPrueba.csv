@@ -1,0 +1,4 @@
+ID,desc,tipo,timestamp,pos,sal,pres_atmos,vel_med_viento
+1,"Lanzamos un CTD 5000","Equipo al Agua","2021-04-08 12:52:00.000000","3.5667217N 17.4943667W",34.6595,1021.98,4.54335
+3,serdrtdertg,"Equipo a bordo","2021-04-13 12:55:00.000000","21.9035783N 18.4744583W",36.0954,1028.22,8.16439
+4,sdrsdrtf,"Equipo al Agua","2021-04-01 12:56:00.000000","20.0314833S 9.9990667W",36.3429,1025.48,11.4113

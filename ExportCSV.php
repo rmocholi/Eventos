@@ -117,7 +117,7 @@
                     <label class="form-check-label" for="Vel_med_viento">Vel_med_viento</label>
                 </div>
                 <div class="my-5">
-                    <label for="fileDesc" class="form-label"><b>Introduce un identificador para el archivo</b></label>
+                    <label for="fileDesc" class="form-label"><b>Introduce un nombre para el archivo</b></label>
                     <input type="text" class="form-control" name="fileDesc" id="fileDesc" aria-describedby="fileDescHelp" />
                     <div id="fileDescHelp" class="form-text">El nombre de la campaña, nombre del IP, tu nombre, el tipo de instrumentos...</div> 
                 </div>
