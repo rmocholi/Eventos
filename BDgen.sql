@@ -8,6 +8,8 @@
  * Created: 06-abr-2021
  */
 
+CREATE DATABASE eventos CHARACTER SET utf8mb4;
+USE eventos;
 
 CREATE TABLE `eventos` (
   `ID` bigint(20) UNSIGNED NOT NULL,

@@ -141,30 +141,38 @@ class Evento {
         
         function LlenarDatosSado() {
             $momento = $this->timestamp;
-            $hora = substr($momento,11,2 );
-            $hora=$hora-4;
-            if(strlen($hora) == 1){$hora = "0".$hora-2;}
-            $intervalo = substr_replace($momento, $hora,11,2);
+            ##$hora = substr($momento,11,2 );
+            $hora="00:00:00";
+            ##if(strlen($hora) == 1){$hora = "0".$hora-2;}
+            $intervalo = substr_replace($momento, $hora,11,-1);
             $this->sadoConn->connect();
             $this->pos= $this->sadoConn->getSadoPos($momento,$intervalo);
             $this->profundidad=$this->sadoConn->getSadoProf($momento, $intervalo);
             $termosal=$this->sadoConn->getSadoTermosalData($momento, $intervalo);
             $this->temp_agua=$termosal['temperatura'];
+            if($this->temp_agua == ""){$this->temp_agua = "0";}
             $this->sal=$termosal['salinidad'];
+            if($this->sal == ""){$this->sal = "0";}
             $this->conductividad=$termosal['conductividad'];
+            if($this->conductividad == ""){$this->conductividad = "0";}
             $this->fluor=$termosal['fluor'];
+            if($this->fluor == ""){$this->fluor = "0";}
             $meteo= $this->sadoConn->getSadoMeteoData($momento, $intervalo);
             $this->vel_med_viento=$meteo['velocidad_media_viento'];
+            if($this->vel_med_viento == ""){$this->vel_med_viento = "0";}
             $this->humedad=$meteo['humedad'];
+            if($this->humedad == ""){$this->humedad = "0";}
             $this->pres_atmos=$meteo['presion_atm'];
+            if($this->pres_atmos == ""){$this->pres_atmos = "0";}
             $this->temp_aire=$meteo['temperatura_aire'];
+            if($this->temp_aire == ""){$this->temp_aire = "0";}
         }
 
                 
         
     //SOBRECARGA DE CONSTRUCTORES CASERA CHAPUCERA            
         function __construct() {
-            $this->sadoConn = new BDConn("sadodb", "sado", "sado", "SADO_SDG_RT");
+            $this->sadoConn = new BDConn("sadodb", "sado", "192.168.3.16", "SADO");
             $params = func_get_args();
             $num_params = func_num_args();
             //uso el constructor cuyo nombre incluya el numero de parametros introducidos

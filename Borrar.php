@@ -42,7 +42,7 @@
                         </div>
                         <?php
                         mostrarEvento($id)?>
-                        <form class="form-horizontal" action="borrar.php" method="post">
+                        <form class="form-horizontal" action="Borrar.php" method="post">
                           <input type="hidden" name="id" value="<?php echo $id;?>"/>
                           <p class="alert alert-danger text-center">¿Seguro que quieres borrar este evento? El no lo haría.</p>
                           <div class="form-actions text-center">
@@ -54,7 +54,7 @@
                         <div class="row ">
                             <h1 class="text-center">BORRAR TODOS LOS EVENTOS</h1>
                         </div>
-                        <form class="form-horizontal mt-5" action="borrar.php" method="post">
+                        <form class="form-horizontal mt-5" action="Borrar.php" method="post">
                           <input type="hidden" name="id" value="<?php echo $id;?>"/>
                           <p class="alert alert-danger text-center h2">¿Seguro que quieres borrar TODOS los eventos?</p>
                           <h5 class="text-center">

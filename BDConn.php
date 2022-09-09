@@ -72,10 +72,22 @@ class BDConn {
        $arQu = mysqli_fetch_array($query,MYSQLI_ASSOC);
        $lat = $arQu['latitud'];
        $long = $arQu['longitud'];
-       $istlat= substr($lat, 0, 1);    
-       $istlong= substr($long, 0, 1);
-       if($istlat == "-"){ $lat=$lat."S"; $lat=substr($lat, 1);}else{$lat=$lat."N";}
-       if($istlong == "-"){$long=$long."W"; $long=substr($long, 1);}else{$long=$long."E";}
+       if($lat == ""){
+           $lat = "null";
+       }else{
+           $istlat= substr($lat, 0, 1);
+           if($istlat == "-"){ $lat=$lat."S"; $lat=substr($lat, 1);}
+           else{$lat=$lat."N";}
+       }
+       
+       if ($long == ""){
+           $long="null";
+       }else{
+           $istlong= substr($long, 0, 1);
+           if($istlong == "-"){$long=$long."W"; $long=substr($long, 1);}
+           else{$long=$long."E";}
+       }
+                 
        $pos = $lat." ".$long;        
        return $pos;
    }
@@ -85,6 +97,7 @@ class BDConn {
        $query =  mysqli_query($this->conexion, $sql) or die(mysqli_error($this->conexion));
        $arQu = mysqli_fetch_array($query,MYSQLI_ASSOC);
        $prof = $arQu['profundidad'];
+       if($prof == ""){$prof="0";}
        return $prof;
    }
    
