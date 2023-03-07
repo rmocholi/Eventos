@@ -25,7 +25,8 @@ CREATE TABLE `eventos` (
   `Temp_aire` float NOT NULL,
   `Humedad` float NOT NULL,
   `Pres_atmos` float NOT NULL,
-  `Vel_med_viento` float NOT NULL
+  `Vel_med_viento` float NOT NULL,
+  `Fecha_fin` datetime NULL
 ) ENGINE=Aria DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 

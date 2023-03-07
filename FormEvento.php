@@ -7,6 +7,15 @@
         $updTime = $ev->getTimestamp();
         $updformat_date = date_create($updTime);
         $updTime = date_format($updformat_date, 'Y-m-d\TH:i');
+
+        $updFin = $ev->getFin();
+        if($updFin == "0000-00-00 00:00:00"){
+            $updFin = null;
+        }else{
+            $updformat_date = date_create($updFin);
+            $updFin = date_format($updformat_date, 'Y-m-d\TH:i');
+        }
+
         
     }else{
         $id = null;
@@ -50,22 +59,32 @@
                                     ?>
                                     <option value="0" <?php echo ($typ == 0 ? 'selected' : ''); ?>>Selecciona un tipo</option>
                                     <option value="1" <?php echo ($typ == 1 ? 'selected' : ''); ?>>Equipo al Agua</option>
-                                    <option value="2" <?php echo ($typ == 2 ? 'selected' : ''); ?>>Equipo a bordo</option>
-                                    <option value="3" <?php echo ($typ == 3 ? 'selected' : ''); ?>>Inicio de Linea</option>
-                                    <option value="4" <?php echo ($typ == 4 ? 'selected' : ''); ?>>Fin de Linea</option>
-                                    <option value="5" <?php echo ($typ == 5 ? 'selected' : ''); ?>>Estación</option>
-                                    <option value="6" <?php echo ($typ == 6 ? 'selected' : ''); ?>>Incidencia</option>
+                                    <option value="2" <?php echo ($typ == 2 ? 'selected' : ''); ?>>Inicio de Linea</option>
+                                    <option value="3" <?php echo ($typ == 3 ? 'selected' : ''); ?>>Estación</option>
+                                    <option value="4" <?php echo ($typ == 4 ? 'selected' : ''); ?>>Incidencia</option>
                                 </select>
                             </div>
                             <div class="mb-3">
-                                <label for="etime" class="form-label">Fecha y hora</label>
+                                <label for="etime" class="form-label">Fecha y hora de inicio</label>
                                 <input type="datetime-local" class="form-control" name="etime" id="etime" aria-describedby="etimeHelp" <?php if($id !=null){ echo "value='$updTime'";}?>>
                                 <div id="etimeHelp" class="form-text"><?php if($id ==null){ echo "Si presionas enter al abrir el calendario se introducirá automaticamente el momento actual.";}?></div>
                             </div>
-                            <button type="submit" class="btn btn-primary"><?php echo ($id==null ? 'Añadir' : 'Editar');?></button>
-                            <a class="btn btn-secondary " href="index.php" >Volver</a>
-                        </form>
                     </div>
+                    <div class="row">
+                            <div class="mb-3 col-8">
+                                <label for="efin" class="form-label">Fecha y hora final</label>
+                                <input type="datetime-local" class="form-control" name="efin" id="efin" aria-describedby="efinHelp" <?php if($id !=null){ if(!is_null($updFin)){echo "value='$updFin'";}else{echo "disabled";}}else{echo "disabled";}?>>
+                                <div id="efinHelp" class="form-text"><?php if($id ==null){ echo "Si presionas enter al abrir el calendario se introducirá automaticamente el momento actual.";}?></div>
+                            </div>
+                            <div class="mt-5 col-4">    
+                                <input class="form-check-input" type="checkbox" name="nofin" id="nofin" value="nofin" value="true" <?php if($id !=null){ if(!is_null($updFin)){}else{echo "checked";}}else{echo "checked";}?> onclick="document.getElementById('efin').disabled = this.checked; document.getElementById('efin').value = '';" >
+                                <label class="form-check-label" for="nofin">Por determinar</label>
+                            </div>
+                    
+                    </div>
+                    <button type="submit" class="btn btn-primary"><?php echo ($id==null ? 'Añadir' : 'Editar');?></button>
+                    <a class="btn btn-secondary " href="index.php" >Volver</a>    
+                    </form>
                 </div>
         
         
@@ -88,6 +107,8 @@
         $tipo = filter_input(INPUT_POST, "etipo");
         $date = filter_input(INPUT_POST, "etime");
         $id = filter_input(INPUT_POST, "id");
+        $fin = filter_input(INPUT_POST, "efin");
+        $nofin = filter_input(INPUT_POST, "nofin");
         
         $valid = true;
     
@@ -114,14 +135,33 @@
                 if($id==null){
                     $format_date = date_create($date);
                     $good_date = date_format($format_date, 'Y-m-d H:i:s');
-                    insertarEvento($desc, $tipo, $good_date);
-                    header("Location: index.php");
+                    
+
+                    if($nofin){
+                        $good_fin = "NULL";
+                    }else{
+                        $format_fin = date_create($fin);
+                        $good_fin = date_format($format_fin, 'Y-m-d H:i:s');
+                    }
+                    
+                    insertarEvento($desc, $tipo, $good_date, $good_fin);
+                    echo "<div class='container'><p class='alert alert-success'>Evento añadido. Puedes seguir añadiendo, o volver.</p></div>";
+                    //header("Location: index.php");
                 }
                 else{
                     $format_date = date_create($date);
                     $good_date = date_format($format_date, 'Y-m-d H:i:s');
-                    ActualizarEvento($id, $desc, $tipo, $good_date);
+
+                    if($nofin){
+                        $good_fin = "NULL";
+                    }else{
+                        $format_fin = date_create($fin);
+                        $good_fin = date_format($format_fin, 'Y-m-d H:i:s');
+                    };
+
+                    ActualizarEvento($id, $desc, $tipo, $good_date, $good_fin);
                     header("Location: index.php");
+                    //echo "<div class='container'><p class='alert alert-success'>$dateError</p></div>"
                 }
             }
     }

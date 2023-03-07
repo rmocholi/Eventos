@@ -10,7 +10,9 @@
         $evArray = [];
         $evs = $eventosDBc->rDBEventos();
         while($fila= mysqli_fetch_array($evs)){
-            $evento= new Evento($fila['ID'],$fila['Descripcion'], 
+            $evento= new Evento(
+                    $fila['ID'],
+                    $fila['Descripcion'], 
                     $fila['Tipo'], 
                     $fila['Timestamp'], 
                     $fila['Pos'], 
@@ -22,17 +24,18 @@
                     $fila['Temp_aire'], 
                     $fila['Humedad'], 
                     $fila['Pres_atmos'], 
-                    $fila['Vel_med_viento']);
+                    $fila['Vel_med_viento'],
+                    $fila['Fecha_fin']);
             array_push($evArray, $evento);
         }
         return $evArray;   
     }
     
-    function insertarEvento($desc,$tipo,$date){
-        $ev = new Evento($desc,$tipo,$date);
+    function insertarEvento($desc,$tipo,$date,$fin){
+        $ev = new Evento($desc,$tipo,$date,$fin);
         //Cuando se utiliza este constructor, el propio evento se autorellena
         global $eventosDBc;
-        $eventosDBc->insertDBEvent($ev->getDesc(), $ev->getTipo(), $ev->getTimestamp(), $ev->getPos(), $ev->getProfundidad(), $ev->getTemp_agua(), $ev->getSal(), $ev->getFluor(), $ev->getConductividad(), $ev->getTemp_aire(), $ev->getHumedad(), $ev->getPres_atmos(), $ev->getVel_med_viento());
+        $eventosDBc->insertDBEvent($ev->getDesc(), $ev->getTipo(), $ev->getTimestamp(), $ev->getPos(), $ev->getProfundidad(), $ev->getTemp_agua(), $ev->getSal(), $ev->getFluor(), $ev->getConductividad(), $ev->getTemp_aire(), $ev->getHumedad(), $ev->getPres_atmos(), $ev->getVel_med_viento(), $ev->getFin());
     }
     
     function adquireEv2Update($id) {
@@ -42,10 +45,10 @@
     return $event;
     }
     
-    function ActualizarEvento($id,$desc,$tipo,$date) {
+    function ActualizarEvento($id,$desc,$tipo,$date,$fin) {
         global $eventosDBc;
-        $ev = new Evento($desc,$tipo,$date);
-        $eventosDBc->updateEvent($id, $ev->getDesc(), $ev->getTipo(), $ev->getTimestamp(), $ev->getPos(), $ev->getProfundidad(), $ev->getTemp_agua(), $ev->getSal(), $ev->getFluor(), $ev->getConductividad(), $ev->getTemp_aire(), $ev->getHumedad(), $ev->getPres_atmos(), $ev->getVel_med_viento());
+        $ev = new Evento($desc,$tipo,$date,$fin);
+        $eventosDBc->updateEvent($id, $ev->getDesc(), $ev->getTipo(), $ev->getTimestamp(), $ev->getPos(), $ev->getProfundidad(), $ev->getTemp_agua(), $ev->getSal(), $ev->getFluor(), $ev->getConductividad(), $ev->getTemp_aire(), $ev->getHumedad(), $ev->getPres_atmos(), $ev->getVel_med_viento(), $ev->getFin());
        
     }
     

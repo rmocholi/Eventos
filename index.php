@@ -22,7 +22,8 @@
                         <th>ID</th>
                         <th>Descripción</th>
                         <th>Tipo</th>
-                        <th>Fecha/Hora</th>
+                        <th>Fecha inicio</th>
+                        <th>Fecha fin</th>
                         <th>Posición</th>
                         <th>Acciones</th>
                     </tr>
@@ -33,12 +34,14 @@
                             $desc=$event->getDesc();
                             $tipo=$event->getTipo();
                             $date=$event->getTimestamp();
+                            $fin=$event->getFin();
                             $pos=$event->getPos();
                             echo "<tr>";
                                 echo "<td>$id</td>";
                                 echo "<td>$desc</td>";
                                 echo "<td>$tipo</td>";
                                 echo "<td>$date</td>";
+                                echo "<td>$fin</td>";
                                 echo "<td>$pos</td>";
                                 echo "<td class='py-1'>"
                                     . "<a class='p-1 btn btn-secondary ' href='Leer.php?id=$id'>Leer</a>"

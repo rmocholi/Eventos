@@ -1,0 +1,6 @@
+Cosas a tener en cuenta para instalar la aplicación Eventos:
+
+1. Instalar en la raíz del servidor web del Equipo.
+2. En el fichero Evento.php , dentro de la funcion __construct(), verificar/editar las credenciales y la dirección IP del servidor SADO del que se quieran obtener los datos.
+3. Crear base de datos eventos usando el script BDgen.sql
+4.Verificar credenciales de acceso a la BD eventos en el archivo Funks.php en la variable eventosBDc
