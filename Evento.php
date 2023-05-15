@@ -18,6 +18,7 @@ class Evento {
         public $pres_atmos = 0;
         public $vel_med_viento = 0;
         public $fin = "";
+        public $instrument = "";
         
         
 
@@ -89,6 +90,12 @@ class Evento {
                 return $this->fin;
         }
 
+        public function getInstrument()
+        {
+                return $this->instrument;
+        }
+
+
         function setID($ID): void {
             $this->ID = $ID;
         }
@@ -149,6 +156,13 @@ class Evento {
         {        $this->fin = $fin;
 
         }
+
+        public function setInstrument($instrument)
+        {
+                $this->instrument = $instrument;
+
+                return $this;
+        }
         
         function LlenarDatosSado() {
             $momento = $this->timestamp;
@@ -201,7 +215,7 @@ class Evento {
         }
         //PARA ADQUIRIR EVENTO PARA POSTERIORMENTE ACTUALIZAR
         function __construct1($rawEv){
-            $this->__construct15($rawEv['ID'],$rawEv['Descripcion'],$rawEv['Tipo'],$rawEv['Timestamp'],$rawEv['Pos'],$rawEv['Profundidad'],$rawEv['Temp_agua'],$rawEv['Sal'],$rawEv['Fluor'],$rawEv['Conductividad'],$rawEv['Temp_aire'],$rawEv['Humedad'],$rawEv['Pres_atmos'],$rawEv['Vel_med_viento'],$rawEv['Fecha_fin']);
+            $this->__construct16($rawEv['ID'],$rawEv['Descripcion'],$rawEv['Tipo'],$rawEv['Timestamp'],$rawEv['Pos'],$rawEv['Profundidad'],$rawEv['Temp_agua'],$rawEv['Sal'],$rawEv['Fluor'],$rawEv['Conductividad'],$rawEv['Temp_aire'],$rawEv['Humedad'],$rawEv['Pres_atmos'],$rawEv['Vel_med_viento'],$rawEv['Fecha_fin'],$rawEv['Instrument']);
             switch ($this->tipo){
                 case "Equipo al Agua":
                     $this->tipo=1; break;
@@ -211,8 +225,6 @@ class Evento {
                     $this->tipo=3;  break;
                 case "Linea":
                     $this->tipo=4; break;
-                case "Incidencia":
-                    $this->tipo=5; break;
                 
             }
         }
@@ -232,14 +244,12 @@ class Evento {
                     $this->tipo="Estación"; break;
                 case 4:
                     $this->tipo="Linea"; break;
-                case 5:
-                    $this->tipo="Incidencia";  break;
             }
             $this->LlenarDatosSado();
         }
   
         //PARA LA LECTURA DE LA BD DE EVENTOS
-        function __construct15($ID, $desc, $tipo, $timestamp, $pos, $profundidad, $temp_agua, $sal, $fluor, $conductividad, $temp_aire, $humedad, $pres_atmos, $vel_med_viento,$fecha_fin) {
+        function __construct16($ID, $desc, $tipo, $timestamp, $pos, $profundidad, $temp_agua, $sal, $fluor, $conductividad, $temp_aire, $humedad, $pres_atmos, $vel_med_viento,$fecha_fin,$instrument) {
             $this->ID = $ID;
             $this->desc = $desc;
             $this->tipo = $tipo;
@@ -259,5 +269,7 @@ class Evento {
         
         
     
+
+
 
 }

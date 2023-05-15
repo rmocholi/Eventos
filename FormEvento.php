@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <?php 
     include 'Funks.php';
+    $route = "../CDI_prueba/";
     if (!empty(filter_input(INPUT_GET, "id"))) {
         $id = filter_input(INPUT_GET, "id");
         $ev = adquireEv2Update($id);
@@ -62,7 +63,22 @@
                                     <option value="2" <?php echo ($typ == 2 ? 'selected' : ''); ?>>Equipo a bordo</option>
                                     <option value="3" <?php echo ($typ == 3 ? 'selected' : ''); ?>>Estación</option>
                                     <option value="4" <?php echo ($typ == 4 ? 'selected' : ''); ?>>Línea</option>
-                                    <option value="5" <?php echo ($typ == 5 ? 'selected' : ''); ?>>Incidencia</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="einst" class="form-label">Instrumento</label>
+                                <select id="einst" name="einst" class="form-select">
+                                    <?php 
+                                        if($id!=null){
+                                            $inst=$ev->getInstrument();
+                                        }
+                                        if ($handler = opendir($route)) {
+                                            foreach (str_replace($route, '', glob($route."*.xml")) as $file){
+                                                echo "<option value=".$file." >".$file."</option>";
+                                            }
+                                        }
+                                        closedir($handler);
+                                    ?>
                                 </select>
                             </div>
                             <div class="mb-3">
