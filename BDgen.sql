@@ -12,7 +12,7 @@ CREATE DATABASE eventos CHARACTER SET utf8mb4;
 USE eventos;
 
 CREATE TABLE `eventos` (
-  `ID` bigint(20) UNSIGNED NOT NULL,
+  `ID` smallint UNSIGNED NOT NULL,
   `Descripcion` varchar(100) COLLATE utf8_spanish_ci NOT NULL,
   `Tipo` varchar(50) COLLATE utf8_spanish_ci NOT NULL,
   `Timestamp` datetime(6) NOT NULL,
@@ -36,5 +36,5 @@ ALTER TABLE `eventos`
 
 
 ALTER TABLE `eventos`
-  MODIFY `ID` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `ID` smallint UNSIGNED NOT NULL AUTO_INCREMENT;
 

@@ -36,6 +36,7 @@ class BDConn {
         //DESCOMENTA ESTO PARA VER LA QUERY EN LA APP
         //echo $sql;
         mysqli_query($this->conexion, $sql) or die(mysqli_error($this->conexion));
+        return mysqli_insert_id($this->conexion);
     }
     
     public function searchByID($id) {

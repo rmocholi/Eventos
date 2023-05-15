@@ -59,9 +59,10 @@
                                     ?>
                                     <option value="0" <?php echo ($typ == 0 ? 'selected' : ''); ?>>Selecciona un tipo</option>
                                     <option value="1" <?php echo ($typ == 1 ? 'selected' : ''); ?>>Equipo al Agua</option>
-                                    <option value="2" <?php echo ($typ == 2 ? 'selected' : ''); ?>>Inicio de Linea</option>
+                                    <option value="2" <?php echo ($typ == 2 ? 'selected' : ''); ?>>Equipo a bordo</option>
                                     <option value="3" <?php echo ($typ == 3 ? 'selected' : ''); ?>>Estación</option>
-                                    <option value="4" <?php echo ($typ == 4 ? 'selected' : ''); ?>>Incidencia</option>
+                                    <option value="4" <?php echo ($typ == 4 ? 'selected' : ''); ?>>Línea</option>
+                                    <option value="5" <?php echo ($typ == 5 ? 'selected' : ''); ?>>Incidencia</option>
                                 </select>
                             </div>
                             <div class="mb-3">
@@ -128,6 +129,12 @@
             if (empty($date)) {
                 $dateError = 'Por favor, introduce una fecha y hora';
                 echo "<div class='container'><p class='alert alert-danger'>$dateError</p></div>";
+                $valid = false;
+            }
+
+            if (!$nofin && empty($fin)) {
+                $finError = 'Por favor, introduce una fecha y hora para el campo fin, o marca la casilla "Por determinar" ';
+                echo "<div class='container'><p class='alert alert-danger'>$finError</p></div>";
                 $valid = false;
             }
             

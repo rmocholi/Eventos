@@ -183,7 +183,7 @@ class Evento {
         
     //SOBRECARGA DE CONSTRUCTORES CASERA CHAPUCERA            
         function __construct() {
-            $this->sadoConn = new BDConn("sadodb", "sado", "192.168.3.16", "SADO");
+            $this->sadoConn = new BDConn("root", "Aqnep2020", "localhost", "SADO");
             $params = func_get_args();
             $num_params = func_num_args();
             //uso el constructor cuyo nombre incluya el numero de parametros introducidos
@@ -205,16 +205,14 @@ class Evento {
             switch ($this->tipo){
                 case "Equipo al Agua":
                     $this->tipo=1; break;
-                case "Inicio de Linea":
+                case "Equipo a bordo":
                     $this->tipo=2; break;
                 case "Estación":
                     $this->tipo=3;  break;
-                case "Incidencia":
+                case "Linea":
                     $this->tipo=4; break;
-                case "Equipo a bordo":
+                case "Incidencia":
                     $this->tipo=5; break;
-                case "Fin de Linea":
-                    $this->tipo=6; break;
                 
             }
         }
@@ -231,13 +229,11 @@ class Evento {
                 case 2:
                     $this->tipo="Equipo a bordo"; break;
                 case 3:
-                    $this->tipo="Inicio de Linea"; break;
+                    $this->tipo="Estación"; break;
                 case 4:
-                    $this->tipo="Fin de Linea"; break;
+                    $this->tipo="Linea"; break;
                 case 5:
-                    $this->tipo="Estación";  break;
-                case 6:
-                    $this->tipo="Incidencia"; break;
+                    $this->tipo="Incidencia";  break;
             }
             $this->LlenarDatosSado();
         }
