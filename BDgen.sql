@@ -27,7 +27,7 @@ CREATE TABLE `eventos` (
   `Pres_atmos` float NOT NULL,
   `Vel_med_viento` float NOT NULL,
   `Fecha_fin` datetime NULL,
-  `Instrument`varchar(20) NULL
+  `Instrument`varchar(40) NULL
 ) ENGINE=Aria DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 

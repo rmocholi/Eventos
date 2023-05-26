@@ -21,8 +21,8 @@
     }else{
         $id = null;
         $typ = 0;
-    }
-?>
+        $inst= "selec";
+    }?>
 <html>
     <head>
         <meta charset="UTF-8">
@@ -56,8 +56,7 @@
                                     <?php 
                                         if($id!=null){
                                             $typ=$ev->getTipo();
-                                        }
-                                    ?>
+                                        }?>
                                     <option value="0" <?php echo ($typ == 0 ? 'selected' : ''); ?>>Selecciona un tipo</option>
                                     <option value="1" <?php echo ($typ == 1 ? 'selected' : ''); ?>>Equipo al Agua</option>
                                     <option value="2" <?php echo ($typ == 2 ? 'selected' : ''); ?>>Equipo a bordo</option>
@@ -71,14 +70,15 @@
                                     <?php 
                                         if($id!=null){
                                             $inst=$ev->getInstrument();
-                                        }
+                                        }?>
+                                        <option value="selec" <?php echo ($inst == "selec" ? 'selected' : ''); ?>>Selecciona un instrumento</option>
+                                    <?php
                                         if ($handler = opendir($route)) {
                                             foreach (str_replace($route, '', glob($route."*.xml")) as $file){
-                                                echo "<option value=".$file." >".$file."</option>";
+                                                ?><option value="<?php echo $file ;?>" <?php echo ($inst == $file ? 'selected' : ''); ?>><?php echo $file ;?></option><?php
                                             }
                                         }
-                                        closedir($handler);
-                                    ?>
+                                        closedir($handler);?>
                                 </select>
                             </div>
                             <div class="mb-3">
@@ -94,7 +94,8 @@
                                 <div id="efinHelp" class="form-text"><?php if($id ==null){ echo "Si presionas enter al abrir el calendario se introducirá automaticamente el momento actual.";}?></div>
                             </div>
                             <div class="mt-5 col-4">    
-                                <input class="form-check-input" type="checkbox" name="nofin" id="nofin" value="nofin" value="true" <?php if($id !=null){ if(!is_null($updFin)){}else{echo "checked";}}else{echo "checked";}?> onclick="document.getElementById('efin').disabled = this.checked; document.getElementById('efin').value = '';" >
+                                <input class="form-check-input" type="checkbox" name="nofin" id="nofin" value="nofin" value="true"
+                                <?php if($id !=null){ if(!is_null($updFin)){}else{echo "checked ";}}else{echo "checked ";}?>onclick="document.getElementById('efin').disabled=this.checked;document.getElementById('efin').value='';">
                                 <label class="form-check-label" for="nofin">Por determinar</label>
                             </div>
                     
@@ -111,17 +112,18 @@
 
     </body>
 </html>
-
 <?php
     
     
     if(!empty(filter_input_array(INPUT_POST))){
         $descError= null;
         $tipoError = null;
+        $instError = null;
         $dateError = null;
         
         $desc = filter_input(INPUT_POST, "edesc");
         $tipo = filter_input(INPUT_POST, "etipo");
+        $instrument = filter_input(INPUT_POST, "einst");
         $date = filter_input(INPUT_POST, "etime");
         $id = filter_input(INPUT_POST, "id");
         $fin = filter_input(INPUT_POST, "efin");
@@ -139,6 +141,12 @@
             if ($tipo == "0") {
                 $tipoError = 'Por favor, escoge un tipo de evento';
                 echo "<div class='container'><p class='alert alert-danger'>$tipoError</p></div>";
+                $valid = false;
+            }
+
+            if ($instrument == "selec") {
+                $instError = 'Por favor, selecciona un instrumento';
+                echo "<div class='container'><p class='alert alert-danger'>$instError</p></div>";
                 $valid = false;
             }
 
@@ -167,7 +175,7 @@
                         $good_fin = date_format($format_fin, 'Y-m-d H:i:s');
                     }
                     
-                    insertarEvento($desc, $tipo, $good_date, $good_fin);
+                    insertarEvento($desc, $tipo, $good_date, $good_fin, $instrument);
                     echo "<div class='container'><p class='alert alert-success'>Evento añadido. Puedes seguir añadiendo, o volver.</p></div>";
                     //header("Location: index.php");
                 }
@@ -182,12 +190,14 @@
                         $good_fin = date_format($format_fin, 'Y-m-d H:i:s');
                     };
 
-                    ActualizarEvento($id, $desc, $tipo, $good_date, $good_fin);
-                    header("Location: index.php");
+                    ActualizarEvento($id, $desc, $tipo, $good_date, $good_fin, $instrument);
+                    $pafuera=true;
+                    //header("Location: index.php");
+                    ?><script language="javascript">window.location.href="index.php";</script><?php
+                    die();
                     //echo "<div class='container'><p class='alert alert-success'>$dateError</p></div>"
                 }
             }
     }
-
 ?>
 

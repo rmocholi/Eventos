@@ -25,17 +25,18 @@
                     $fila['Humedad'], 
                     $fila['Pres_atmos'], 
                     $fila['Vel_med_viento'],
-                    $fila['Fecha_fin']);
+                    $fila['Fecha_fin'],
+                    $fila['Instrument']);
             array_push($evArray, $evento);
         }
         return $evArray;   
     }
     
-    function insertarEvento($desc,$tipo,$date,$fin){
-        $ev = new Evento($desc,$tipo,$date,$fin);
+    function insertarEvento($desc,$tipo,$date,$fin,$inst){
+        $ev = new Evento($desc,$tipo,$date,$fin,$inst);
         //Cuando se utiliza este constructor, el propio evento se autorellena
         global $eventosDBc;
-        $eventosDBc->insertDBEvent($ev->getDesc(), $ev->getTipo(), $ev->getTimestamp(), $ev->getPos(), $ev->getProfundidad(), $ev->getTemp_agua(), $ev->getSal(), $ev->getFluor(), $ev->getConductividad(), $ev->getTemp_aire(), $ev->getHumedad(), $ev->getPres_atmos(), $ev->getVel_med_viento(), $ev->getFin());
+        $eventosDBc->insertDBEvent($ev->getDesc(), $ev->getTipo(), $ev->getTimestamp(), $ev->getPos(), $ev->getProfundidad(), $ev->getTemp_agua(), $ev->getSal(), $ev->getFluor(), $ev->getConductividad(), $ev->getTemp_aire(), $ev->getHumedad(), $ev->getPres_atmos(), $ev->getVel_med_viento(), $ev->getFin(),$ev->getInstrument());
     }
     
     function adquireEv2Update($id) {
@@ -45,10 +46,10 @@
     return $event;
     }
     
-    function ActualizarEvento($id,$desc,$tipo,$date,$fin) {
+    function ActualizarEvento($id,$desc,$tipo,$date,$fin, $inst) {
         global $eventosDBc;
-        $ev = new Evento($desc,$tipo,$date,$fin);
-        $eventosDBc->updateEvent($id, $ev->getDesc(), $ev->getTipo(), $ev->getTimestamp(), $ev->getPos(), $ev->getProfundidad(), $ev->getTemp_agua(), $ev->getSal(), $ev->getFluor(), $ev->getConductividad(), $ev->getTemp_aire(), $ev->getHumedad(), $ev->getPres_atmos(), $ev->getVel_med_viento(), $ev->getFin());
+        $ev = new Evento($desc,$tipo,$date,$fin,$inst);
+        $eventosDBc->updateEvent($id, $ev->getDesc(), $ev->getTipo(), $ev->getTimestamp(), $ev->getPos(), $ev->getProfundidad(), $ev->getTemp_agua(), $ev->getSal(), $ev->getFluor(), $ev->getConductividad(), $ev->getTemp_aire(), $ev->getHumedad(), $ev->getPres_atmos(), $ev->getVel_med_viento(), $ev->getFin(), $ev->getInstrument());
        
     }
     

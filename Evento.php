@@ -230,7 +230,7 @@ class Evento {
         }
 
         //PARA LA CREACION Y ACTUALIZACIÓN DE EVENTOS
-        function __construct4($desc, $tipo, $timestamp,$fecha_fin) {
+        function __construct5($desc, $tipo, $timestamp,$fecha_fin,$instrument) {
             $this->desc = $desc;
             $this->tipo = $tipo;
             $this->timestamp = $timestamp;
@@ -245,6 +245,7 @@ class Evento {
                 case 4:
                     $this->tipo="Linea"; break;
             }
+            $this->instrument=$instrument;
             $this->LlenarDatosSado();
         }
   
@@ -265,6 +266,7 @@ class Evento {
             $this->pres_atmos = $pres_atmos;
             $this->vel_med_viento = $vel_med_viento;
             $this->fin = $fecha_fin;
+            $this->instrument = $instrument;
         }
         
         

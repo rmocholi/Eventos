@@ -22,6 +22,7 @@
                         <th>ID</th>
                         <th>Descripción</th>
                         <th>Tipo</th>
+                        <th>Instrumento</th>
                         <th>Fecha inicio</th>
                         <th>Fecha fin</th>
                         <th>Posición</th>
@@ -36,10 +37,12 @@
                             $date=$event->getTimestamp();
                             $fin=$event->getFin();
                             $pos=$event->getPos();
+                            $inst=$event->getInstrument();
                             echo "<tr>";
                                 echo "<td>$id</td>";
                                 echo "<td>$desc</td>";
                                 echo "<td>$tipo</td>";
+                                echo "<td>$inst</td>";
                                 echo "<td>$date</td>";
                                 echo "<td>$fin</td>";
                                 echo "<td>$pos</td>";
