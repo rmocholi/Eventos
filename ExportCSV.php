@@ -3,6 +3,18 @@
     $isdesc=true;
     $fileDesc = null;
     $hideExport=false;
+    $allfin = false;
+    $eventos = leerEventos();
+
+    foreach ($eventos as $e) {
+        if ($e->getFin() == "Indeterminado") {
+            $allfin = false;
+            break;
+        }else{
+            $allfin = true;
+        }
+    }
+
     if (!empty(filter_input_array(INPUT_POST))){
                 $opt = filter_input_array(INPUT_POST);
                 $fileDesc = $opt['fileDesc'];
@@ -18,8 +30,7 @@
         $hideExport=true;             
         $filename = "Eventos-$fileDesc.csv";
         $filepath = "Exports/$filename";
-        unset($opt['fileDesc']);
-        $eventos = leerEventos();
+        unset($opt['fileDesc']);      
         $archivo = fopen($filepath, 'w');
         $delim=",";
         fputcsv($archivo, $opt,$delim);
@@ -55,11 +66,13 @@
                 <p class="alert-secondary rounded-2 h1 text-center my-5"> Exportar eventos a fichero CSV</p>
             </div>      
         </div>
+
+
         <div class=" my-5  container justify-content-center">
             <div class="row mb-3">
                 <h3 class="text-center">¿Qué datos deseas incluir en el archivo?</h3>
             </div> 
-            <form name="csvopt" action="ExportCSV.php" method="post" >
+            <form name="csvopt" action="ExportCSV.php" method="post">
                 <div class="form-check form-check-inline col-2">
                     <input class="form-check-input" type="checkbox" name="ID" id="ID" value="ID" checked>
                     <label class="form-check-label" for="ID">ID</label>
@@ -124,7 +137,7 @@
                 <?php if(!$isdesc){ echo "<div class='container'><p class='alert alert-danger'>Por favor, introduce un identificador.</p></div>";} ?>
                 
                 <div class="container">
-                    <div class="row justify-content-around form-actions mt-5 ">
+                    <div class="row justify-content-center form-actions mt-5 mb-3 ">
                         <?php if(!$hideExport){ ?>
                         <div class="col-4 " >
                             <button type="submit" class="btn btn-primary btn-lg" style="display:block; width: 100%; ">Exportar</button>
@@ -133,6 +146,25 @@
                         <div class="col-4" >
                             <a class="btn btn-lg btn-secondary " href="index.php" style="display:block; width: 100%; ">Volver</a>
                          </div>
+                    </div>
+                    <div class="row justify-content-center ">
+                    <?php 
+                    if($allfin){
+                    }else{
+                        echo 
+                        '<div class="row justify-content-center ">
+                            <p class="col-6 text-center">Para utilizar esta función todos los eventos deben tener una fecha final</p>
+                        </div>';
+                    }?>
+                    <div class="row justify-content-center ">
+                                <div class="col-2">
+                                
+                                    <a title="Generar CSV con formato WebForestAdmin"
+                                        <?php
+                                        echo ($allfin  ? ' class=" btn btn-outline-info" href="MetaCSV.php"' : ' class=" btn disabled btn-outline-secondary"');
+                                        ?>
+                                     style="display:block; width: 100%;">CSV-Metadatos</a>
+                                </div>                      
                     </div>
                 </div>                
             </form>           

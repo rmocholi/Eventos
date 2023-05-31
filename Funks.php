@@ -27,6 +27,18 @@
                     $fila['Vel_med_viento'],
                     $fila['Fecha_fin'],
                     $fila['Instrument']);
+
+            $ori_timestamp = date_create($evento->getTimestamp());
+            $fmtd_timestamp = date_format($ori_timestamp, 'd-m-Y H:i:s');
+            $evento->setTimestamp($fmtd_timestamp);
+            if ($evento->getFin() == "0000-00-00 00:00:00") {
+                $evento->setFin("Indeterminado");
+            }else{
+                $ori_fin = date_create($evento->getFin());
+                $fmtd_fin = date_format($ori_fin, 'd-m-Y H:i:s');
+                $evento->setFin($fmtd_fin);
+            }  
+
             array_push($evArray, $evento);
         }
         return $evArray;   

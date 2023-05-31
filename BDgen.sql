@@ -15,7 +15,7 @@ CREATE TABLE `eventos` (
   `ID` smallint UNSIGNED NOT NULL,
   `Descripcion` varchar(100) COLLATE utf8_spanish_ci NOT NULL,
   `Tipo` varchar(50) COLLATE utf8_spanish_ci NOT NULL,
-  `Timestamp` datetime(6) NOT NULL,
+  `Timestamp` datetime(0) NOT NULL,
   `Pos` varchar(50) COLLATE utf8_spanish_ci NOT NULL,
   `Profundidad` float NOT NULL,
   `Temp_agua` float NOT NULL,
@@ -26,7 +26,7 @@ CREATE TABLE `eventos` (
   `Humedad` float NOT NULL,
   `Pres_atmos` float NOT NULL,
   `Vel_med_viento` float NOT NULL,
-  `Fecha_fin` datetime NULL,
+  `Fecha_fin` datetime(0) NULL,
   `Instrument`varchar(40) NULL
 ) ENGINE=Aria DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
