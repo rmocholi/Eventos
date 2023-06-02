@@ -9,14 +9,14 @@
     $eventos = leerEventos();
     $archivo = fopen($filepath, 'w');
     $delim=",";
-    fputcsv($archivo, $opt,$delim);
+    fputcsv($archivo, $opt,$delim, chr(0));
     foreach ($eventos as $e) {
         $linea=array();
         array_push($linea,$e->getTimestamp());
         array_push($linea,$e->getFin());   
         array_push($linea,$e->getInstrument());   
         array_push($linea,$e->getDesc());             
-        fputcsv($archivo, $linea,$delim);
+        fputcsv($archivo, $linea,$delim, chr(0));
     }
     header('Content-Type: text/csv');
     header('Content-Disposition: attachment; filename="'.$filename.'";');

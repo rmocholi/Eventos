@@ -2,6 +2,7 @@
 <?php 
     include 'Funks.php';
     $route = "../CDI_prueba/";
+    $clean = [$route, ".xml"];
     if (!empty(filter_input(INPUT_GET, "id"))) {
         $id = filter_input(INPUT_GET, "id");
         $ev = adquireEv2Update($id);
@@ -74,7 +75,7 @@
                                         <option value="selec" <?php echo ($inst == "selec" ? 'selected' : ''); ?>>Selecciona un instrumento</option>
                                     <?php
                                         if ($handler = opendir($route)) {
-                                            foreach (str_replace($route, '', glob($route."*.xml")) as $file){
+                                            foreach (str_replace($clean, '', glob($route."*.xml")) as $file){
                                                 ?><option value="<?php echo $file ;?>" <?php echo ($inst == $file ? 'selected' : ''); ?>><?php echo $file ;?></option><?php
                                             }
                                         }
@@ -82,14 +83,14 @@
                                 </select>
                             </div>
                             <div class="mb-3">
-                                <label for="etime" class="form-label">Fecha y hora de inicio</label>
-                                <input type="datetime-local" class="form-control" name="etime" id="etime" aria-describedby="etimeHelp" <?php if($id !=null){ echo "value='$updTime'";}?>>
+                                <label for="etime" class="form-label">Fecha y hora de inicio (introducir en hora UTC)</label>
+                                <input type="datetime-local" class="form-control" name="etime" id="etime" aria-describedby="etimeHelp" <?php if($id !=null){ echo "value='$updTime'";}else{echo "value='TZD'";}?>>
                                 <div id="etimeHelp" class="form-text"><?php if($id ==null){ echo "Si presionas enter al abrir el calendario se introducirá automaticamente el momento actual.";}?></div>
                             </div>
                     </div>
                     <div class="row">
                             <div class="mb-3 col-8">
-                                <label for="efin" class="form-label">Fecha y hora final</label>
+                                <label for="efin" class="form-label">Fecha y hora final (introducir en hora UTC)</label>
                                 <input type="datetime-local" class="form-control" name="efin" id="efin" aria-describedby="efinHelp" <?php if($id !=null){ if(!is_null($updFin)){echo "value='$updFin'";}else{echo "disabled";}}else{echo "disabled";}?>>
                                 <div id="efinHelp" class="form-text"><?php if($id ==null){ echo "Si presionas enter al abrir el calendario se introducirá automaticamente el momento actual.";}?></div>
                             </div>

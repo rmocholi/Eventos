@@ -31,7 +31,7 @@
             $ori_timestamp = date_create($evento->getTimestamp());
             $fmtd_timestamp = date_format($ori_timestamp, 'd-m-Y H:i:s');
             $evento->setTimestamp($fmtd_timestamp);
-            if ($evento->getFin() == "0000-00-00 00:00:00") {
+            if ($evento->getFin() == '0000-00-00 00:00:00') {
                 $evento->setFin("Indeterminado");
             }else{
                 $ori_fin = date_create($evento->getFin());

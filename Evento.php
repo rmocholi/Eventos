@@ -160,8 +160,6 @@ class Evento {
         public function setInstrument($instrument)
         {
                 $this->instrument = $instrument;
-
-                return $this;
         }
         
         function LlenarDatosSado() {
