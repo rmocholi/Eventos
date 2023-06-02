@@ -25,7 +25,7 @@ class BDConn {
     
     //Lee la base de datos y devuelve una variable con todos los datos en bruto.
     public function rDBEventos() {
-        $datos = mysqli_query($this->conexion,"SELECT * FROM eventos;") or die(mysqli_error($this->conexion));
+        $datos = mysqli_query($this->conexion,"SELECT * FROM eventos order by Timestamp;") or die(mysqli_error($this->conexion));
         return $datos;       
     }
     

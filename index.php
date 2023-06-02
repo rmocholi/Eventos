@@ -19,7 +19,6 @@
             <div class="row">
                 <table class="table  table-dark table-hover">
                     <tr>
-                        <th>ID</th>
                         <th>Descripción</th>
                         <th>Tipo</th>
                         <th>Instrumento</th>
@@ -39,7 +38,6 @@
                             $pos=$event->getPos();
                             $inst=$event->getInstrument();
                             echo "<tr>";
-                                echo "<td>$id</td>";
                                 echo "<td>$desc</td>";
                                 echo "<td>$tipo</td>";
                                 echo "<td>$inst</td>";

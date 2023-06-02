@@ -195,7 +195,7 @@ class Evento {
         
     //SOBRECARGA DE CONSTRUCTORES CASERA CHAPUCERA            
         function __construct() {
-            $this->sadoConn = new BDConn("root", "Aqnep2020", "localhost", "SADO");
+            $this->sadoConn = new BDConn("sadodb", "sado", "192.168.3.16", "SADO");
             $params = func_get_args();
             $num_params = func_num_args();
             //uso el constructor cuyo nombre incluya el numero de parametros introducidos
