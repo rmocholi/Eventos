@@ -34,7 +34,7 @@ class BDConn {
         $sql = "INSERT INTO eventos (Descripcion, Tipo, Timestamp, Pos, Profundidad, Temp_agua, Sal, Fluor, Conductividad, Temp_aire, Humedad, Pres_atmos, Vel_med_viento, Fecha_fin, Instrument)"
                 . "VALUES ('$desc','$tipo','$timestamp','$pos','$profundidad','$temp_agua','$sal','$fluor','$conductividad','$temp_aire','$humedad','$pres_atmos','$vel_med_viento','$fecha_fin','$instrument')";
         //DESCOMENTA ESTO PARA VER LA QUERY EN LA APP
-        //echo $sql;
+        echo $sql;
         mysqli_query($this->conexion, $sql) or die(mysqli_error($this->conexion));
         return mysqli_insert_id($this->conexion);
     }

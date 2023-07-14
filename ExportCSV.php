@@ -74,10 +74,6 @@
             </div> 
             <form name="csvopt" action="ExportCSV.php" method="post">
                 <div class="form-check form-check-inline col-2">
-                    <input class="form-check-input" type="checkbox" name="ID" id="ID" value="ID" checked>
-                    <label class="form-check-label" for="ID">ID</label>
-                </div>
-                <div class="form-check form-check-inline col-2">
                     <input class="form-check-input" type="checkbox" name="Descripcion" id="Descripcion" value="desc" checked >
                     <label class="form-check-label" for="Descripcion">Descripcion</label>
                 </div>

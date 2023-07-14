@@ -170,7 +170,7 @@
                     
 
                     if($nofin){
-                        $good_fin = "NULL";
+                        $good_fin = 'NULL';
                     }else{
                         $format_fin = date_create($fin);
                         $good_fin = date_format($format_fin, 'Y-m-d H:i:s');
