@@ -46,7 +46,7 @@
                         <form name="newevent" action="FormEvento.php" method="post">
                             <input type="hidden" name="id" value="<?php echo $id;?>"/>
                             <div class="mb-3">
-                                <label for="edesc" class="form-label">Descripción</label>
+                                <label for="edesc" class="form-label">Descripción </label>
                                 <input type="text" class="form-control" name="edesc" id="edesc" aria-describedby="descHelp" value="<?php if($id !=null){ echo $ev->getDesc();} ?>"/>
                                 <div id="descHelp" class="form-text">Describe el evento(instrumento, razon, etc.)</div> 
                             </div>
@@ -55,7 +55,7 @@
                                 <select id="etipo" name="etipo" class="form-select">
                                     <?php 
                                         if($id!=null){
-                                            $typ=$ev->getTipo();
+                                            $typ=$ev->getTipo();                                         
                                         }?>
                                     <option value="0" <?php echo ($typ == 0 ? 'selected' : ''); ?>>Selecciona un tipo</option>
                                     <option value="1" <?php echo ($typ == 1 ? 'selected' : ''); ?>>Equipo al Agua</option>
@@ -74,7 +74,7 @@
                                         <option value="selec" <?php echo ($inst == "selec" ? 'selected' : ''); ?>>Selecciona un instrumento</option>
                                     <?php
                                         if ($handler = opendir($route)) {
-                                            foreach (str_replace($clean, '', glob($route."*.xml")) as $file){
+                                            foreach (str_replace($route, '', glob($route."*.xml")) as $file){
                                                 ?><option value="<?php echo $file ;?>" <?php echo ($inst == $file ? 'selected' : ''); ?>><?php echo $file ;?></option><?php
                                             }
                                         }
