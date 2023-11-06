@@ -11,8 +11,7 @@
         $updTime = date_format($updformat_date, 'Y-m-d\TH:i');
 
         $updFin = $ev->getFin();
-        if($updFin == "0000-00-00 00:00:00"){
-            $updFin = null;
+        if($updFin == null){
         }else{
             $updformat_date = date_create($updFin);
             $updFin = date_format($updformat_date, 'Y-m-d\TH:i');
