@@ -10,7 +10,7 @@
         if ($e->getFin() == "Indeterminado") {
             $allfin = false;
             break;
-        }else{
+        }else{ 
             $allfin = true;
         }
     }

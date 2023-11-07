@@ -32,7 +32,7 @@ class BDConn {
     
     public function insertDBEvent($desc,$tipo,$timestamp,$pos,$profundidad,$temp_agua,$sal,$fluor,$conductividad,$temp_aire,$humedad,$pres_atmos,$vel_med_viento,$fecha_fin,$instrument) {
         $sql = "INSERT INTO eventos (Descripcion, Tipo, Timestamp, Pos, Profundidad, Temp_agua, Sal, Fluor, Conductividad, Temp_aire, Humedad, Pres_atmos, Vel_med_viento, Fecha_fin, Instrument)"
-                . "VALUES ('$desc','$tipo','$timestamp','$pos','$profundidad','$temp_agua','$sal','$fluor','$conductividad','$temp_aire','$humedad','$pres_atmos','$vel_med_viento',".($fecha_fin=='null' ? $fecha_fin : "$fecha_fin").",'$instrument')";
+                . "VALUES ('$desc','$tipo','$timestamp','$pos','$profundidad','$temp_agua','$sal','$fluor','$conductividad','$temp_aire','$humedad','$pres_atmos','$vel_med_viento',".($fecha_fin=='null' ? $fecha_fin : "'$fecha_fin'").",'$instrument')";
         //DESCOMENTA ESTO PARA VER LA QUERY EN LA APP
         echo $sql;
         mysqli_query($this->conexion, $sql) or die(mysqli_error($this->conexion));
@@ -47,7 +47,7 @@ class BDConn {
     }
     
     public function updateEvent($id,$desc,$tipo,$timestamp,$pos,$profundidad,$temp_agua,$sal,$fluor,$conductividad,$temp_aire,$humedad,$pres_atmos,$vel_med_viento,$fecha_fin,$instrument) {
-        $sql= "UPDATE eventos SET Descripcion='$desc', Tipo='$tipo', Timestamp='$timestamp', Pos='$pos', Profundidad=$profundidad, Temp_agua=$temp_agua, Sal=$sal, Fluor=$fluor, Conductividad=$conductividad, Temp_aire=$temp_aire, Humedad=$humedad, Pres_atmos=$pres_atmos, Vel_med_viento=$vel_med_viento, Fecha_fin='$fecha_fin', Instrument='$instrument' "
+        $sql= "UPDATE eventos SET Descripcion='$desc', Tipo='$tipo', Timestamp='$timestamp', Pos='$pos', Profundidad=$profundidad, Temp_agua=$temp_agua, Sal=$sal, Fluor=$fluor, Conductividad=$conductividad, Temp_aire=$temp_aire, Humedad=$humedad, Pres_atmos=$pres_atmos, Vel_med_viento=$vel_med_viento, Fecha_fin=".($fecha_fin=='null' ? $fecha_fin : "'$fecha_fin'").", Instrument='$instrument' "
                 . "WHERE ID = $id";
         mysqli_query($this->conexion, $sql) or die(mysqli_error($this->conexion));
     }
