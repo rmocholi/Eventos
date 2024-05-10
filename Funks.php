@@ -31,7 +31,7 @@
             $ori_timestamp = date_create($evento->getTimestamp());
             $fmtd_timestamp = date_format($ori_timestamp, 'd-m-Y H:i:s');
             $evento->setTimestamp($fmtd_timestamp);
-            if ($evento->getFin() == '0000-00-00 00:00:00') {
+            if ($evento->getFin() == null) {
                 $evento->setFin("Indeterminado");
             }else{
                 $ori_fin = date_create($evento->getFin());
@@ -46,7 +46,7 @@
     
     function insertarEvento($desc,$tipo,$date,$fin,$inst){
         $ev = new Evento($desc,$tipo,$date,$fin,$inst);
-        //Cuando se utiliza este constructor, el propio evento se autorellena
+	 //Cuando se utiliza este constructor, el propio evento se autorellena
         global $eventosDBc;
         $eventosDBc->insertDBEvent($ev->getDesc(), $ev->getTipo(), $ev->getTimestamp(), $ev->getPos(), $ev->getProfundidad(), $ev->getTemp_agua(), $ev->getSal(), $ev->getFluor(), $ev->getConductividad(), $ev->getTemp_aire(), $ev->getHumedad(), $ev->getPres_atmos(), $ev->getVel_med_viento(), $ev->getFin(),$ev->getInstrument());
     }

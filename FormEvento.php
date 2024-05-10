@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <?php 
     include 'Funks.php';
-    $route = "../CDI_prueba/";
+    $route = "xml/";
     $clean = [$route, ".xml"];
     if (!empty(filter_input(INPUT_GET, "id"))) {
         $id = filter_input(INPUT_GET, "id");
@@ -11,8 +11,7 @@
         $updTime = date_format($updformat_date, 'Y-m-d\TH:i');
 
         $updFin = $ev->getFin();
-        if($updFin == "0000-00-00 00:00:00"){
-            $updFin = null;
+        if($updFin == null){
         }else{
             $updformat_date = date_create($updFin);
             $updFin = date_format($updformat_date, 'Y-m-d\TH:i');
@@ -75,7 +74,7 @@
                                         <option value="selec" <?php echo ($inst == "selec" ? 'selected' : ''); ?>>Selecciona un instrumento</option>
                                     <?php
                                         if ($handler = opendir($route)) {
-                                            foreach (str_replace($clean, '', glob($route."*.xml")) as $file){
+                                            foreach (str_replace($route, '', glob($route."*.xml")) as $file){
                                                 ?><option value="<?php echo $file ;?>" <?php echo ($inst == $file ? 'selected' : ''); ?>><?php echo $file ;?></option><?php
                                             }
                                         }
@@ -170,7 +169,7 @@
                     
 
                     if($nofin){
-                        $good_fin = "NULL";
+                        $good_fin = "null";
                     }else{
                         $format_fin = date_create($fin);
                         $good_fin = date_format($format_fin, 'Y-m-d H:i:s');
@@ -185,7 +184,7 @@
                     $good_date = date_format($format_date, 'Y-m-d H:i:s');
 
                     if($nofin){
-                        $good_fin = "NULL";
+                        $good_fin = "null" ;
                     }else{
                         $format_fin = date_create($fin);
                         $good_fin = date_format($format_fin, 'Y-m-d H:i:s');
