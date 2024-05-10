@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <?php 
     include 'Funks.php';
-    $route = "xml/";
-    $clean = [$route, ".xml"];
+    include 'Funks.php';
+    $codex = "ArcaDeLaVerdadIncorruptible/CodiceDelSaberSupremo.txt";
     if (!empty(filter_input(INPUT_GET, "id"))) {
         $id = filter_input(INPUT_GET, "id");
         $ev = adquireEv2Update($id);
@@ -73,12 +73,13 @@
                                         }?>
                                         <option value="selec" <?php echo ($inst == "selec" ? 'selected' : ''); ?>>Selecciona un instrumento</option>
                                     <?php
-                                        if ($handler = opendir($route)) {
-                                            foreach (str_replace($route, '', glob($route."*.xml")) as $file){
-                                                ?><option value="<?php echo $file ;?>" <?php echo ($inst == $file ? 'selected' : ''); ?>><?php echo $file ;?></option><?php
+                                            $ark = fopen($codex,"r");
+                                            while(! feof($ark)){
+                                                $linea = fgets($ark);
+                                                ?><option value="<?php echo $linea ;?>" <?php echo ($inst == $linea ? 'selected' : ''); ?>><?php echo $linea ;?></option><?php
                                             }
-                                        }
-                                        closedir($handler);?>
+                                            fclose($ark);
+                                        ?>
                                 </select>
                             </div>
                             <div class="mb-3">

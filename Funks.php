@@ -2,7 +2,7 @@
     require("BDConn.php");
     require("Evento.php");
     
-    $eventosDBc = new BDConn("root", "Aqnep2020", "localhost", "eventos");
+    $eventosDBc = new BDConn("root", "Aqnep@22", "localhost", "eventos");
     $eventosDBc->connect();
     
     function leerEventos(){
