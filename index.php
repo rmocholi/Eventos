@@ -7,12 +7,17 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="css/bootstrap.min.css">
+        <script defer src="fontawesome/solid.min.js" ></script>
+        <script defer src="fontawesome/fontawesome.min.js"></script>
         <script src="js/jquery-3.6.0.js"></script>
         <script src="js/bootstrap.min.js"></script>
         <title>Eventos</title>
     </head>
     <body>
         <div class="container my-5 ">
+            <div class="position-relative">
+            <a class="btn position-absolute top-0 end-0" href="InstruConf.php"><i class="fa-solid fa-gear fa-xl"></i></a>
+            </div>
             <div class="row ">
                 <h1 class="text-center display-3">EVENTOS</h1>
             </div>

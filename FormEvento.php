@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <?php 
     include 'Funks.php';
-    include 'Funks.php';
     $codex = "ArcaDeLaVerdadIncorruptible/CodiceDelSaberSupremo.txt";
     if (!empty(filter_input(INPUT_GET, "id"))) {
         $id = filter_input(INPUT_GET, "id");
