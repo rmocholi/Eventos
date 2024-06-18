@@ -1,8 +1,6 @@
-XBT
-Flauta de Pan
-Sonda Monohaz
-Sonda Multihaz
 El corchopan
-Flauta de corcho
-Corchopan de Flauta
+La corchopanera
+La corchopanificadora
+Pan sin corcho
 Corchopan subacuatico
+El corcho
