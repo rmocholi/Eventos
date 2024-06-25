@@ -1,27 +1,44 @@
 <?php 
-    include 'Funks.php';
+include 'Funks.php';
 
-    $fileDesc = "MetaCSV";
-             
-    $filename = "Eventos-$fileDesc.csv";
-    $filepath = "Exports/$filename";
-    $opt = array("timestamp","fin","instrument","desc");
-    $eventos = leerEventos();
-    $archivo = fopen($filepath, 'w');
-    $delim=",";
-    fputcsv($archivo, $opt,$delim, chr(0));
-    foreach ($eventos as $e) {
-        $linea=array();
-        array_push($linea,$e->getTimestamp());
-        array_push($linea,$e->getFin());   
-        array_push($linea,$e->getInstrument());   
-        array_push($linea,$e->getDesc());             
-        fputcsv($archivo, $linea,$delim, chr(0));
-    }
-    header('Content-Type: text/csv');
-    header('Content-Disposition: attachment; filename="'.$filename.'";');
-    readfile($filepath);
-    exit();
-    header("Location: MetaCSV.php");
-            
+$fileDesc = "MetaCSV";
+$filename = "Eventos-$fileDesc.csv";
+$filepath = "Exports/$filename";
+$eventos = leerEventos();
+
+// Asegúrate de que el directorio Exports existe
+if (!file_exists('Exports')) {
+    mkdir('Exports', 0777, true);
+}
+
+$archivo = fopen($filepath, 'w');
+$delim = ",";
+
+foreach ($eventos as $e) {
+    $linea = array();
+    // Sanitiza los datos para evitar caracteres no deseados
+    $timestamp = trim($e->getTimestamp());
+    $fin = trim($e->getFin());
+    $instrument = trim($e->getInstrument());
+    $desc = trim($e->getDesc());
+    
+    array_push($linea, $timestamp);
+    array_push($linea, $fin);
+    array_push($linea, $instrument);
+    array_push($linea, $desc);
+    
+    // Utiliza el delimitador por defecto (coma) o explícitamente
+    fputcsv($archivo, $linea, $delim);
+}
+
+fclose($archivo);
+
+// Asegúrate de que no haya salida antes de los headers
+ob_clean();
+header('Content-Type: text/csv');
+header('Content-Disposition: attachment; filename="' . $filename . '";');
+readfile($filepath);
+exit();
+
+header("Location: MetaCSV.php");
 ?>

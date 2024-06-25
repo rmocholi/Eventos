@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <?php 
     include 'Funks.php';
-    $codex = "ArcaDeLaVerdadIncorruptible/CodiceDelSaberSupremo.txt";
+    $codex = "ArcaDeLaVerdadIncorruptible/Reduct.txt";
     if (!empty(filter_input(INPUT_GET, "id"))) {
         $id = filter_input(INPUT_GET, "id");
         $ev = adquireEv2Update($id);
