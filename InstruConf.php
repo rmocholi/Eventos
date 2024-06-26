@@ -41,7 +41,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['writeToFile'])) {
     <script defer src="fontawesome/fontawesome.min.js"></script>
     <script src="js/jquery-3.6.0.js"></script>
     <script src="js/bootstrap.min.js"></script>
-    <title>Exportar CSV</title>
+    <title>Instrumentación</title>
 </head>
 <body>
     <div class="container my-5">
