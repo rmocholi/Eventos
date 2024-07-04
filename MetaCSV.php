@@ -33,8 +33,8 @@ foreach ($eventos as $e) {
     array_push($linea, $instrument);
     array_push($linea, $desc);
     
-    // Utiliza el delimitador por defecto (coma) o explícitamente
-    fputcsv($archivo, $linea, $delim);
+    $linea_csv = implode($delim, $linea) . "\n";
+    fwrite($archivo, $linea_csv);
 }
 
 fclose($archivo);
