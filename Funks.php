@@ -15,7 +15,9 @@
                     $fila['Descripcion'], 
                     $fila['Tipo'], 
                     $fila['Timestamp'], 
-                    $fila['Pos'], 
+                    $fila['Pos'],
+                    $fila['Latitud'],
+                    $fila['Longitud'], 
                     $fila['Profundidad'], 
                     $fila['Temp_agua'], 
                     $fila['Sal'], 
@@ -48,7 +50,7 @@
         $ev = new Evento($desc,$tipo,$date,$fin,$inst);
 	 //Cuando se utiliza este constructor, el propio evento se autorellena
         global $eventosDBc;
-        $eventosDBc->insertDBEvent($ev->getDesc(), $ev->getTipo(), $ev->getTimestamp(), $ev->getPos(), $ev->getProfundidad(), $ev->getTemp_agua(), $ev->getSal(), $ev->getFluor(), $ev->getConductividad(), $ev->getTemp_aire(), $ev->getHumedad(), $ev->getPres_atmos(), $ev->getVel_med_viento(), $ev->getFin(),$ev->getInstrument());
+        $eventosDBc->insertDBEvent($ev->getDesc(), $ev->getTipo(), $ev->getTimestamp(), $ev->getPos(), $ev->getLat(), $ev->getLong(), $ev->getProfundidad(), $ev->getTemp_agua(), $ev->getSal(), $ev->getFluor(), $ev->getConductividad(), $ev->getTemp_aire(), $ev->getHumedad(), $ev->getPres_atmos(), $ev->getVel_med_viento(), $ev->getFin(),$ev->getInstrument());
     }
     
     function adquireEv2Update($id) {
@@ -61,7 +63,7 @@
     function ActualizarEvento($id,$desc,$tipo,$date,$fin, $inst) {
         global $eventosDBc;
         $ev = new Evento($desc,$tipo,$date,$fin,$inst);
-        $eventosDBc->updateEvent($id, $ev->getDesc(), $ev->getTipo(), $ev->getTimestamp(), $ev->getPos(), $ev->getProfundidad(), $ev->getTemp_agua(), $ev->getSal(), $ev->getFluor(), $ev->getConductividad(), $ev->getTemp_aire(), $ev->getHumedad(), $ev->getPres_atmos(), $ev->getVel_med_viento(), $ev->getFin(), $ev->getInstrument());
+        $eventosDBc->updateEvent($id, $ev->getDesc(), $ev->getTipo(), $ev->getTimestamp(), $ev->getPos(), $ev->getLat(), $ev->getLong(), $ev->getProfundidad(), $ev->getTemp_agua(), $ev->getSal(), $ev->getFluor(), $ev->getConductividad(), $ev->getTemp_aire(), $ev->getHumedad(), $ev->getPres_atmos(), $ev->getVel_med_viento(), $ev->getFin(), $ev->getInstrument());
        
     }
     

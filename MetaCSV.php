@@ -15,13 +15,19 @@ $archivo = fopen($filepath, 'w');
 $delim = ",";
 
 foreach ($eventos as $e) {
+
+    
     $linea = array();
     // Sanitiza los datos para evitar caracteres no deseados
+    $lat = trim($e->getLat());
+    $long = trim($e->getLong());
     $timestamp = trim($e->getTimestamp());
     $fin = trim($e->getFin());
     $instrument = trim($e->getInstrument());
     $desc = trim($e->getDesc());
     
+    array_push($linea, $long);
+    array_push($linea, $lat);
     array_push($linea, $timestamp);
     array_push($linea, $fin);
     array_push($linea, $instrument);

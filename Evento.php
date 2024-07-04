@@ -7,7 +7,12 @@ class Evento {
         public $desc = "";
         public $tipo = "";
         public $timestamp = "";
+
         public $pos = "";
+
+        public $lat = "";
+        public $long = "";
+        
         public $profundidad = 0;
         public $temp_agua = 0;
         public $sal = 0;
@@ -95,6 +100,16 @@ class Evento {
                 return $this->instrument;
         }
 
+        public function getLat()
+        {
+                return $this->lat;
+        }
+
+        public function getLong()
+        {
+                return $this->long;
+        }
+
 
         function setID($ID): void {
             $this->ID = $ID;
@@ -112,7 +127,24 @@ class Evento {
             $this->timestamp = $timestamp;
         }
 
-        function setPos($pos): void {
+        function setPos($lat, $long): void {
+                if($lat == ""){
+                           $lat = "null";
+                       }else{
+                           $istlat= substr($lat, 0, 1);
+                           if($istlat == "-"){ $lat=$lat."S"; $lat=substr($lat, 1);}
+                           else{$lat=$lat."N";}
+                       }
+                       
+                       if ($long == ""){
+                           $long="null";
+                       }else{
+                           $istlong= substr($long, 0, 1);
+                           if($istlong == "-"){$long=$long."W"; $long=substr($long, 1);}
+                           else{$long=$long."E";}
+                       }
+                                 
+                       $pos = $lat." ".$long;        
             $this->pos = $pos;
         }
 
@@ -161,6 +193,24 @@ class Evento {
         {
                 $this->instrument = $instrument;
         }
+
+        public function setLat($lat): self
+        {
+                $this->lat = $lat;
+
+                return $this;
+        }
+
+        public function setLong($long): self
+        {
+                $this->long = $long;
+
+                return $this;
+        }
+
+
+
+
         
         function LlenarDatosSado() {
             $momento = $this->timestamp;
@@ -169,7 +219,9 @@ class Evento {
             ##if(strlen($hora) == 1){$hora = "0".$hora-2;}
             $intervalo = substr_replace($momento, $hora,11,-1);
             $this->sadoConn->connect();
-            $this->pos= $this->sadoConn->getSadoPos($momento,$intervalo);
+            $this->lat= $this->sadoConn->getSadoLat($momento,$intervalo);
+            $this->long= $this->sadoConn->getSadoLong($momento,$intervalo);
+            $this->setPos($this->lat, $this->long);
             $this->profundidad=$this->sadoConn->getSadoProf($momento, $intervalo);
             $termosal=$this->sadoConn->getSadoTermosalData($momento, $intervalo);
             $this->temp_agua=$termosal['temperatura'];
@@ -213,7 +265,7 @@ class Evento {
         }
         //PARA ADQUIRIR EVENTO PARA POSTERIORMENTE ACTUALIZAR
         function __construct1($rawEv){
-            $this->__construct16($rawEv['ID'],$rawEv['Descripcion'],$rawEv['Tipo'],$rawEv['Timestamp'],$rawEv['Pos'],$rawEv['Profundidad'],$rawEv['Temp_agua'],$rawEv['Sal'],$rawEv['Fluor'],$rawEv['Conductividad'],$rawEv['Temp_aire'],$rawEv['Humedad'],$rawEv['Pres_atmos'],$rawEv['Vel_med_viento'],$rawEv['Fecha_fin'],$rawEv['Instrument']);
+            $this->__construct18($rawEv['ID'],$rawEv['Descripcion'],$rawEv['Tipo'],$rawEv['Timestamp'],$rawEv['Pos'],$rawEv['Latitud'],$rawEv['Longitud'],$rawEv['Profundidad'],$rawEv['Temp_agua'],$rawEv['Sal'],$rawEv['Fluor'],$rawEv['Conductividad'],$rawEv['Temp_aire'],$rawEv['Humedad'],$rawEv['Pres_atmos'],$rawEv['Vel_med_viento'],$rawEv['Fecha_fin'],$rawEv['Instrument']);
             switch ($this->tipo){
                 case "Equipo al Agua":
                     $this->tipo=1; break;
@@ -248,12 +300,14 @@ class Evento {
         }
   
         //PARA LA LECTURA DE LA BD DE EVENTOS
-        function __construct16($ID, $desc, $tipo, $timestamp, $pos, $profundidad, $temp_agua, $sal, $fluor, $conductividad, $temp_aire, $humedad, $pres_atmos, $vel_med_viento,$fecha_fin,$instrument) {
+        function __construct18($ID, $desc, $tipo, $timestamp, $pos, $lat, $long, $profundidad, $temp_agua, $sal, $fluor, $conductividad, $temp_aire, $humedad, $pres_atmos, $vel_med_viento,$fecha_fin,$instrument) {
             $this->ID = $ID;
             $this->desc = $desc;
             $this->tipo = $tipo;
             $this->timestamp = $timestamp;
             $this->pos = $pos;
+            $this->lat = $lat;
+            $this->long = $long;
             $this->profundidad = $profundidad;
             $this->temp_agua = $temp_agua;
             $this->sal = $sal;
@@ -266,10 +320,6 @@ class Evento {
             $this->fin = $fecha_fin;
             $this->instrument = $instrument;
         }
-        
-        
-    
-
 
 
 }
