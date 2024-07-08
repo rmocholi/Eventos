@@ -18,6 +18,8 @@ CREATE TABLE `eventos` (
   `Timestamp` datetime(0) NOT NULL,
   `Pos` varchar(50) COLLATE utf8_spanish_ci NOT NULL,
   `Profundidad` float NOT NULL,
+  `Latitud` double DEFAULT NULL,
+  `Longitud` double DEFAULT NULL,
   `Temp_agua` float NOT NULL,
   `Sal` float NOT NULL,
   `Fluor` float NOT NULL,
