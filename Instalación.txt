@@ -1,7 +1,27 @@
 Cosas a tener en cuenta para instalar la aplicación Eventos:
 
 -Es preferible instalar la aplicación en un servidor separado del SADO. Dada la antiguedad de los sistemas que este requiere se pueden dar conflictos con las dependencias de la aplicación.
--Se requiere tener instalado un servidor apache/httpd y MySQL
+-Instalaciones requeridas: 
+  -Apache/httpd 
+      sudo dnf install httpd
+      sudo systemctl enable httpd
+  -MariaDB 
+      sudo dnf install mariadb mariadb-server
+      sudo systemctl enable mariadb
+      sudo systemctl start mariadb
+      mysql_secure_installation (habilitar usuario root y poner contraseña)
+  -PHP, PHP-FPM 
+      sudo dnf install php php-fpm
+  -Modulo Mysqli de PHP 
+      sudo dnf install php-mysqli
+
+-Deshabilitar selinux
+  nano /etc/selinux/config
+      SELINUX=DISABLED
+  init 6 (reiniciar)
+-Abrir el puerto 80 del servidor
+  firewall-cmd --permanent --add-service=http
+  firewall-cmd --reload
 
 1. Copiar todos los archivos en una carpeta "eventos" en la carpeta que muestre servicio web del Equipo.
 2. En el fichero Evento.php , dentro de la funcion __construct(), verificar/editar las credenciales y la dirección IP del servidor SADO del que se quieran obtener los datos.
